@@ -96,7 +96,7 @@ function Index() {
         </header>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_320px]">
-          <section className="panel grid-bg !p-0 overflow-hidden">
+          <section className="panel grid-bg !p-0 overflow-hidden flex flex-col">
             <div className="flex items-center justify-between border-b border-border/60 px-5 py-3">
               <span className="label">Distribution</span>
               <div className="flex gap-3 text-xs text-muted-foreground">
@@ -206,7 +206,7 @@ function Chart({ st, t, method, revealed, isOut }: { st: Stats; t: number | null
   const tColor = !revealed ? "var(--accent)" : isOut ? "var(--destructive)" : "var(--success)";
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full">
+    <svg viewBox={`0 0 ${W} ${H}`} className="my-auto block h-auto w-full">
       <rect x={x(lo)} y={40} width={Math.max(x(hi) - x(lo), 1)} height={190} rx={8}
         fill="color-mix(in oklab, var(--accent) 6%, transparent)" stroke="var(--accent)" strokeOpacity={0.6} strokeDasharray="5 5" />
       <text x={x(lo)} y={32} fill="var(--accent)" fontSize={11} textAnchor="middle" className="mono">{fmt(lo)}</text>
