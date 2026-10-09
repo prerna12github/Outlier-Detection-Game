@@ -79,11 +79,11 @@ function Index() {
       <div className="mx-auto max-w-6xl px-5 py-8 md:py-12">
         <header className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <span className="chip"><span className="h-1.5 w-1.5 rounded-full bg-primary" /> Round {score.played + (revealed ? 0 : 1)}</span>
-            <h1 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight">
-              Outlier <span className="text-primary">Arena</span>
+            <span className="chip">round {score.played + (revealed ? 0 : 1)}</span>
+            <h1 className="serif mt-3 text-5xl md:text-6xl font-bold tracking-tight">
+              Is it an <span className="marker italic">outlier?</span>
             </h1>
-            <p className="mt-2 max-w-md text-muted-foreground">Look at the data. Make the call. Let the statistics judge you.</p>
+            <p className="hand mt-2 max-w-md text-2xl text-muted-foreground">eyeball the dots, make your call, then check the math →</p>
           </div>
           <div className="grid grid-cols-4 gap-2">
             {([["Score", score.win], ["Streak", score.streak], ["Best", score.best], ["Accuracy", `${acc}%`]] as const).map(([k, v]) => (
@@ -97,11 +97,11 @@ function Index() {
 
         <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_320px]">
           <section className="panel grid-bg !p-0 overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between border-b border-border/60 px-5 py-3">
-              <span className="label">Distribution</span>
+            <div className="flex items-center justify-between border-b-[1.5px] border-border bg-card px-5 py-3">
+              <span className="serif text-lg font-semibold">Fig. 1 — the data</span>
               <div className="flex gap-3 text-xs text-muted-foreground">
-                <Legend cls="bg-foreground/80" label="Data" />
-                <Legend cls="bg-primary/40" label="Q1–Q3" />
+                <Legend cls="bg-primary" label="Data" />
+                <Legend cls="bg-primary/20 border border-foreground" label="Q1–Q3" />
                 <Legend cls="border border-dashed border-accent" label={method === "iqr" ? "Fences" : "±2σ"} />
               </div>
             </div>
@@ -128,7 +128,7 @@ function Index() {
                 <button className="flex-1" data-on={method === "z"} onClick={() => edit(() => setMethod("z"))}>|Z| &gt; 2</button>
               </div>
             </div>
-            <button onClick={next} className="btn w-full">↻ New random round</button>
+            <button onClick={next} className="btn w-full">Shuffle a new dataset</button>
           </aside>
         </div>
 
@@ -148,8 +148,8 @@ function Index() {
             ) : (
               <div className="pop flex flex-wrap items-center justify-between gap-6">
                 <div>
-                  <div className={`text-2xl font-bold ${correct ? "text-success" : "text-destructive"}`}>
-                    {correct ? "Correct" : "Not quite"}
+                  <div className={`serif text-3xl font-bold ${correct ? "text-success" : "text-destructive"}`}>
+                    {correct ? "Nailed it." : "Oops, not quite."}
                   </div>
                   <p className="mt-1 text-muted-foreground">
                     <span className="mono text-foreground">{t}</span> is {isOut ? "an outlier" : "within the normal range"}.
@@ -208,17 +208,18 @@ function Chart({ st, t, method, revealed, isOut }: { st: Stats; t: number | null
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="my-auto block h-auto w-full">
       <rect x={x(lo)} y={40} width={Math.max(x(hi) - x(lo), 1)} height={190} rx={8}
-        fill="color-mix(in oklab, var(--accent) 6%, transparent)" stroke="var(--accent)" strokeOpacity={0.6} strokeDasharray="5 5" />
+        fill="color-mix(in oklab, var(--accent) 8%, transparent)" stroke="var(--accent)" strokeWidth={1.5} strokeDasharray="6 4" />
       <text x={x(lo)} y={32} fill="var(--accent)" fontSize={11} textAnchor="middle" className="mono">{fmt(lo)}</text>
       <text x={x(hi)} y={32} fill="var(--accent)" fontSize={11} textAnchor="middle" className="mono">{fmt(hi)}</text>
 
       <rect x={x(st.q1)} y={212} width={Math.max(x(st.q3) - x(st.q1), 2)} height={18} rx={4}
-        fill="color-mix(in oklab, var(--primary) 35%, transparent)" stroke="var(--primary)" />
-      <line x1={x(st.med)} x2={x(st.med)} y1={208} y2={234} stroke="var(--primary)" strokeWidth={2.5} />
+        fill="color-mix(in oklab, var(--primary) 20%, transparent)" stroke="var(--foreground)" strokeWidth={1.5} />
+      <line x1={x(st.med)} x2={x(st.med)} y1={208} y2={234} stroke="var(--foreground)" strokeWidth={2.5} />
       <line x1={x(st.mean)} x2={x(st.mean)} y1={44} y2={230} stroke="var(--muted-foreground)" strokeDasharray="2 4" />
-      <text x={x(st.mean) + 5} y={56} fill="var(--muted-foreground)" fontSize={10} className="mono">μ</text>
+      <text x={x(st.mean) + 6} y={60} fill="var(--muted-foreground)" fontSize={20} className="hand">mean</text>
+      <text x={(x(lo) + x(hi)) / 2} y={32} fill="var(--accent)" fontSize={20} textAnchor="middle" className="hand">"normal" zone</text>
 
-      <line x1={P} x2={W - P} y1={axisY} y2={axisY} stroke="var(--border)" />
+      <line x1={P} x2={W - P} y1={axisY} y2={axisY} stroke="var(--foreground)" strokeWidth={1.5} />
       {ticks.map((v, i) => (
         <g key={i}>
           <line x1={x(v)} x2={x(v)} y1={axisY} y2={axisY + 5} stroke="var(--border)" />
@@ -228,7 +229,7 @@ function Chart({ st, t, method, revealed, isOut }: { st: Stats; t: number | null
 
       {dots.map((d, i) => (
         <circle key={`${d.v}-${i}`} className="dot-in" style={{ animationDelay: `${i * 25}ms` }}
-          cx={d.cx} cy={d.cy} r={5} fill="var(--foreground)" fillOpacity={0.85} />
+          cx={d.cx} cy={d.cy} r={5} fill="var(--primary)" stroke="var(--foreground)" strokeWidth={1} />
       ))}
 
       {t !== null && (
