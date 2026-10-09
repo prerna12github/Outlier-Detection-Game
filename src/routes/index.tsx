@@ -83,7 +83,7 @@ function Index() {
             <h1 className="serif mt-3 text-5xl md:text-6xl font-bold tracking-tight">
               Is it an <span className="marker italic">outlier?</span>
             </h1>
-            <p className="hand mt-2 max-w-md text-2xl text-muted-foreground">eyeball the dots, make your call, then check the math →</p>
+            <p className="hand mt-2 max-w-xl text-2xl text-muted-foreground">eyeball the dots, make your call, then check the math →</p>
           </div>
           <div className="grid grid-cols-4 gap-2">
             {([["Score", score.win], ["Streak", score.streak], ["Best", score.best], ["Accuracy", `${acc}%`]] as const).map(([k, v]) => (
