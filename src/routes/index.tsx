@@ -22,7 +22,8 @@ function stats(data: number[]) {
   const sd = Math.sqrt(s.reduce((a, b) => a + (b - mean) ** 2, 0) / n);
   const q = (p: number) => {
     const i = (n - 1) * p, lo = Math.floor(i), hi = Math.ceil(i);
-    return s[lo] + (s[hi] - s[lo]) * (i - lo);
+    const a = s[lo]!, b = s[hi]!;
+    return a + (b - a) * (i - lo);
   };
   const q1 = q(0.25), q3 = q(0.75), iqr = q3 - q1;
   return { s, mean, sd, q1, q3, med: q(0.5), lo: q1 - 1.5 * iqr, hi: q3 + 1.5 * iqr };
