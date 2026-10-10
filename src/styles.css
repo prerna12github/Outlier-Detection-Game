@@ -4,28 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
-
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -40,128 +22,241 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --color-success: var(--success);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.965 0.018 85);
-  --foreground: oklch(0.24 0.02 260);
-  --card: oklch(0.985 0.012 85);
-  --card-foreground: oklch(0.24 0.02 260);
-  --popover: oklch(0.985 0.012 85);
-  --popover-foreground: oklch(0.24 0.02 260);
-  --primary: oklch(0.45 0.13 255);
-  --primary-foreground: oklch(0.985 0.012 85);
-  --secondary: oklch(0.93 0.02 85);
-  --secondary-foreground: oklch(0.24 0.02 260);
-  --muted: oklch(0.9 0.02 85);
-  --muted-foreground: oklch(0.5 0.02 260);
-  --accent: oklch(0.6 0.17 45);
-  --accent-foreground: oklch(0.985 0.012 85);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  --success: oklch(0.52 0.12 155);
-  --border: oklch(0.3 0.02 260);
-  --rule: oklch(0.85 0.03 230);
-  --input: oklch(0.99 0.008 85);
-  --ring: oklch(0.45 0.13 255);
-}
+  --radius: 5px;
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  /* Retro Paper Color Palette from Specification */
+  --background: #F8F2E5;
+  --card: #FFFCF4;
+  --foreground: #242830;
+  --secondary-text: #6B7280;
+  --border: #30343B;
+  --accent: #E85D16;
+  --highlight: #F4C5A5;
+  --primary: #245D9C;
+  --data-blue: #245D9C;
+  --success: #218653;
+  --grid-dot: #E8DDCB;
+  --destructive: #D94828;
+  --destructive-foreground: #FFFCF4;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0E8D5;
+  --secondary-foreground: #242830;
+  --muted: #EFE7D7;
+  --muted-foreground: #6B7280;
+  --popover: #FFFCF4;
+  --popover-foreground: #242830;
+  --card-foreground: #242830;
+  --input: #FFFDF8;
+  --ring: #245D9C;
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--border);
+    box-sizing: border-box;
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
   }
 }
 
-body { font-family: "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-.serif { font-family: "Fraunces", Georgia, serif; font-optical-sizing: auto; }
-.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
-.hand { font-family: "Caveat", cursive; }
-.arena { background-color: var(--background);
-  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px);
-  background-size: 22px 22px; }
-.grid-bg { background-color: var(--card);
-  background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-  background-size: 20px 20px; }
-.panel { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: 4px 4px 0 color-mix(in oklab, var(--foreground) 85%, transparent); }
-.label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-foreground); font-family: "IBM Plex Mono", monospace; }
-.field { width: 100%; background: var(--input); border: 1.5px solid var(--border); border-radius: var(--radius); padding: .6rem .75rem; outline: none; }
-.field:focus { box-shadow: 3px 3px 0 var(--primary); }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font-weight: 600; font-size: 14px; padding: .65rem 1.1rem; border-radius: var(--radius); border: 1.5px solid var(--border); background: var(--card); color: var(--foreground); box-shadow: 3px 3px 0 var(--border); transition: transform .08s, box-shadow .08s; }
-.btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--border); }
-.btn:active { transform: translate(3px,3px); box-shadow: 0 0 0 var(--border); }
-.btn-primary { background: var(--primary); color: var(--primary-foreground); }
-.btn-danger { background: var(--destructive); color: var(--destructive-foreground); }
-.btn-safe { background: var(--success); color: var(--primary-foreground); }
-.seg { display: inline-flex; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.seg button { padding: .5rem .9rem; font-size: 13px; font-weight: 600; color: var(--muted-foreground); }
-.seg button + button { border-left: 1.5px solid var(--border); }
-.seg button[data-on="true"] { background: var(--foreground); color: var(--background); }
-.chip { display:inline-flex; align-items:center; gap:.4rem; font-family: "IBM Plex Mono", monospace; font-size: 12px; padding: .15rem .5rem; border: 1.5px solid var(--border); background: var(--accent); color: var(--accent-foreground); transform: rotate(-2deg); }
-.marker { background: linear-gradient(transparent 60%, color-mix(in oklab, var(--accent) 35%, transparent) 60%); padding: 0 .1em; }
-.dot-in { animation: dotIn .45s cubic-bezier(.2,.8,.2,1) both; }
-.pulse { animation: pulse 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
-.pop { animation: pop .3s ease-out; }
-@keyframes dotIn { from { opacity: 0; transform: translateY(-14px); } }
-@keyframes pulse { 50% { opacity: .2; transform: scale(1.8); } }
-@keyframes pop { from { transform: rotate(-1deg) scale(.98); opacity: 0; } }
+/* Typography Classes */
+.serif {
+  font-family: "Fraunces", "DM Serif Display", Georgia, serif;
+  font-optical-sizing: auto;
+}
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+.hand {
+  font-family: "Caveat", cursive;
+}
+
+/* Retro Paper Textures */
+.paper-bg {
+  background-color: #F8F2E5;
+  background-image: radial-gradient(#E8DDCB 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+.chart-grid-bg {
+  background-color: #FFFCF4;
+  background-image: linear-gradient(#E8DDCB 1px, transparent 1px), linear-gradient(90deg, #E8DDCB 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Retro Editorial Card with Hard Offset Shadow */
+.retro-card {
+  background-color: #FFFCF4;
+  border: 1.5px solid #30343B;
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px #30343B;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.retro-card-interactive {
+  cursor: pointer;
+}
+.retro-card-interactive:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #30343B;
+}
+.retro-card-interactive:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #30343B;
+}
+
+/* Buttons with Hard Shadows */
+.retro-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0.65rem 1.25rem;
+  border-radius: 5px;
+  border: 1.5px solid #30343B;
+  background-color: #FFFCF4;
+  color: #242830;
+  box-shadow: 3px 3px 0px #30343B;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  user-select: none;
+}
+.retro-btn:hover:not(:disabled) {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 4.5px 4.5px 0px #30343B;
+}
+.retro-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #30343B;
+}
+.retro-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: 2px 2px 0px #30343B;
+}
+
+.retro-btn-primary {
+  background-color: #245D9C;
+  color: #FFFFFF;
+}
+.retro-btn-accent {
+  background-color: #E85D16;
+  color: #FFFFFF;
+}
+.retro-btn-success {
+  background-color: #218653;
+  color: #FFFFFF;
+}
+.retro-btn-danger {
+  background-color: #D94828;
+  color: #FFFFFF;
+}
+
+/* Editorial Monospaced Labels */
+.retro-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6B7280;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+/* Highlight Marker */
+.marker-highlight {
+  background-color: #F4C5A5;
+  padding: 0.05em 0.25em;
+  border-radius: 3px;
+  color: #242830;
+}
+
+/* Subtle badge / chip */
+.retro-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border: 1.5px solid #30343B;
+  background-color: #F4C5A5;
+  color: #242830;
+  box-shadow: 2px 2px 0px #30343B;
+}
+
+/* Input Fields */
+.retro-input {
+  width: 100%;
+  background-color: #FFFDF8;
+  border: 1.5px solid #30343B;
+  border-radius: 4px;
+  padding: 0.55rem 0.75rem;
+  color: #242830;
+  outline: none;
+  font-family: "IBM Plex Mono", monospace;
+}
+.retro-input:focus {
+  box-shadow: 3px 3px 0px #245D9C;
+}
+
+/* Segmented Control */
+.retro-seg {
+  display: inline-flex;
+  border: 1.5px solid #30343B;
+  border-radius: 5px;
+  background-color: #FFFDF8;
+  overflow: hidden;
+  box-shadow: 2px 2px 0px #30343B;
+}
+.retro-seg button {
+  padding: 0.45rem 0.85rem;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "IBM Plex Mono", monospace;
+  color: #6B7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.retro-seg button + button {
+  border-left: 1.5px solid #30343B;
+}
+.retro-seg button[data-active="true"] {
+  background-color: #242830;
+  color: #F8F2E5;
+}
+
+/* Animation helpers */
+@keyframes pulseTarget {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.6); opacity: 0.25; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+
+.pulse-ring {
+  animation: pulseTarget 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
