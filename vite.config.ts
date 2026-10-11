@@ -12,4 +12,12 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      allowedHosts: [
+        "096524cd004401.lhr.life",
+        "fanfare-sizing-crusher.ngrok-free.dev",
+      ],
+    },
+  },
 });
