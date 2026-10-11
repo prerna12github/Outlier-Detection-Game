@@ -3,8 +3,8 @@ import { Volume2, VolumeX, Crosshair, Award, BookOpen, BarChart3, Compass } from
 import { sound } from '../lib/sound';
 
 interface HeaderProps {
-  currentScreen: 'home' | 'modes' | 'game' | 'results';
-  onNavigate: (screen: 'home' | 'modes') => void;
+  currentScreen: 'home' | 'modes' | 'game' | 'results' | 'how-to-play';
+  onNavigate: (screen: 'home' | 'modes' | 'how-to-play') => void;
   onOpenHowToPlay: () => void;
   onOpenStats: () => void;
   highScore: number;
@@ -69,10 +69,12 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => {
               sound.playPop();
-              onOpenHowToPlay();
+              onNavigate('how-to-play');
             }}
-            className="retro-btn !py-1.5 !px-3 !text-xs"
-            title="How to Play Tutorial"
+            className={`retro-btn !py-1.5 !px-3 !text-xs ${
+              currentScreen === 'how-to-play' ? 'bg-[#242830] text-[#FFFCF4]' : ''
+            }`}
+            title="How to Play Field Guide"
           >
             <BookOpen className="h-3.5 w-3.5" />
             <span className="hidden md:inline">How to</span> Play

@@ -5,6 +5,7 @@ import { LandingPage } from "../components/LandingPage";
 import { ModeSelector } from "../components/ModeSelector";
 import { GameplayScreen } from "../components/GameplayScreen";
 import { ResultsScreen } from "../components/ResultsScreen";
+import { HowToPlayView } from "../components/HowToPlayView";
 import { HowToPlayModal } from "../components/HowToPlayModal";
 import { StatsModal } from "../components/StatsModal";
 import { GameMode, Difficulty, PlayerAnswer, Question, UserStats } from "../types/game";
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/")({
 });
 
 function OutlierHuntApp() {
-  const [screen, setScreen] = useState<'home' | 'modes' | 'game' | 'results'>('home');
+  const [screen, setScreen] = useState<'home' | 'modes' | 'game' | 'results' | 'how-to-play'>('home');
   const [userStats, setUserStats] = useState<UserStats>(loadUserStats);
   const [isMuted, setIsMuted] = useState<boolean>(sound.getMuted());
 
@@ -111,7 +112,13 @@ function OutlierHuntApp() {
           sound.playPop();
           setScreen(target);
         }}
-        onOpenHowToPlay={() => setHowToPlayOpen(true)}
+        onOpenHowToPlay={() => {
+          if (screen === 'game') {
+            setHowToPlayOpen(true);
+          } else {
+            setScreen('how-to-play');
+          }
+        }}
         onOpenStats={() => setStatsOpen(true)}
         highScore={userStats.highScore}
         isMuted={isMuted}
@@ -123,8 +130,14 @@ function OutlierHuntApp() {
         {screen === 'home' && (
           <LandingPage
             onStartPlay={() => setScreen('modes')}
-            onOpenHowToPlay={() => setHowToPlayOpen(true)}
+            onOpenHowToPlay={() => setScreen('how-to-play')}
             userStats={userStats}
+          />
+        )}
+
+        {screen === 'how-to-play' && (
+          <HowToPlayView
+            onStartPlaying={() => setScreen('modes')}
           />
         )}
 
@@ -161,7 +174,7 @@ function OutlierHuntApp() {
         )}
       </main>
 
-      {/* How to Play Modal */}
+      {/* How to Play Modal (for in-game lookups) */}
       <HowToPlayModal
         isOpen={howToPlayOpen}
         onClose={() => setHowToPlayOpen(false)}
