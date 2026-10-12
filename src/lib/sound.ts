@@ -1,6 +1,7 @@
 class SoundManager {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = true;
+  private lastPopTime: number = 0;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -47,24 +48,41 @@ class SoundManager {
 
   public playPop() {
     if (this.isMuted) return;
+    const nowMs = Date.now();
+    // 35ms debounce prevents accidental double-triggering when parent/child both fire
+    if (nowMs - this.lastPopTime < 35) return;
+    this.lastPopTime = nowMs;
+
     this.initCtx();
     if (!this.ctx) return;
 
     try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(420, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(840, this.ctx.currentTime + 0.08);
+      const now = this.ctx.currentTime;
 
-      gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08);
+      // High-quality tactile paper/wooden button click with harmonized punch matching the How to Play button level
+      const osc = this.ctx.createOscillator();
+      const subOsc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.07);
+
+      subOsc.type = 'triangle';
+      subOsc.frequency.setValueAtTime(220, now);
+      subOsc.frequency.exponentialRampToValueAtTime(440, now + 0.05);
+
+      gain.gain.setValueAtTime(0.22, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
 
       osc.connect(gain);
+      subOsc.connect(gain);
       gain.connect(this.ctx.destination);
 
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.08);
+      osc.start(now);
+      subOsc.start(now);
+      osc.stop(now + 0.08);
+      subOsc.stop(now + 0.08);
     } catch {
       // AudioContext policy catch
     }
@@ -86,7 +104,7 @@ class SoundManager {
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, startTime);
 
-        gain.gain.setValueAtTime(0.15, startTime);
+        gain.gain.setValueAtTime(0.20, startTime);
         gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.22);
 
         osc.connect(gain);
@@ -116,7 +134,7 @@ class SoundManager {
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(freq, startTime);
 
-        gain.gain.setValueAtTime(0.12, startTime);
+        gain.gain.setValueAtTime(0.18, startTime);
         gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.18);
 
         osc.connect(gain);
@@ -142,7 +160,7 @@ class SoundManager {
       osc.frequency.setValueAtTime(350, this.ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(620, this.ctx.currentTime + 0.15);
 
-      gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+      gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
 
       osc.connect(gain);
@@ -177,7 +195,7 @@ class SoundManager {
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(f, start);
 
-        gain.gain.setValueAtTime(0.18, start);
+        gain.gain.setValueAtTime(0.22, start);
         gain.gain.exponentialRampToValueAtTime(0.001, start + 0.45);
 
         osc.connect(gain);

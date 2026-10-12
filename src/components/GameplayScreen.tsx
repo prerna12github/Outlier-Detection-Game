@@ -369,7 +369,10 @@ export const GameplayScreen: React.FC<GameplayScreenProps> = ({
 
           {/* Quit Button */}
           <button
-            onClick={() => setQuitModalOpen(true)}
+            onClick={() => {
+              sound.playPop();
+              setQuitModalOpen(true);
+            }}
             className="retro-btn !p-1.5 !text-xs"
             title="Quit Current Session"
           >
@@ -664,7 +667,10 @@ export const GameplayScreen: React.FC<GameplayScreenProps> = ({
             </div>
             <div className="flex justify-end pt-2">
               <button
-                onClick={() => setHintOpen(false)}
+                onClick={() => {
+                  sound.playPop();
+                  setHintOpen(false);
+                }}
                 className="retro-btn retro-btn-primary !py-2 !px-5"
               >
                 Understood
@@ -685,11 +691,13 @@ export const GameplayScreen: React.FC<GameplayScreenProps> = ({
               </h3>
             </div>
             <p className="text-sm text-[#6B7280] leading-relaxed">
-              Exiting now will abandon your current round score and combo streak. Your high scores and previous completed sessions will remain safe in local history.
-            </p>
+              Exiting now will abandon your current round score and combo streak. Your high scores and previous completed sessions will remain safe in local history.\n            </p>
             <div className="flex justify-end gap-3 pt-2">
               <button
-                onClick={() => setQuitModalOpen(false)}
+                onClick={() => {
+                  sound.playPop();
+                  setQuitModalOpen(false);
+                }}
                 className="retro-btn"
               >
                 Resume Hunting

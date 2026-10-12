@@ -26,7 +26,10 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         {/* Brand / Logo */}
         <button
-          onClick={() => onNavigate('home')}
+          onClick={() => {
+            sound.playPop();
+            onNavigate('home');
+          }}
           className="group flex items-center gap-2.5 text-left focus:outline-none"
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-[4px] border-[1.5px] border-[#30343B] bg-[#E85D16] text-[#FFFCF4] shadow-[2px_2px_0px_#30343B] transition-transform group-hover:scale-105">
@@ -48,7 +51,10 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Navigation Links */}
         <nav className="flex items-center gap-1.5 sm:gap-2">
           <button
-            onClick={() => onNavigate('home')}
+            onClick={() => {
+              sound.playPop();
+              onNavigate('home');
+            }}
             className={`retro-btn !py-1.5 !px-3 !text-xs ${
               currentScreen === 'home' ? 'bg-[#242830] text-[#FFFCF4]' : ''
             }`}
@@ -57,7 +63,10 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
-            onClick={() => onNavigate('modes')}
+            onClick={() => {
+              sound.playPop();
+              onNavigate('modes');
+            }}
             className={`retro-btn !py-1.5 !px-3 !text-xs ${
               currentScreen === 'modes' ? 'bg-[#242830] text-[#FFFCF4]' : ''
             }`}
