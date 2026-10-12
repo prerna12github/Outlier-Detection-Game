@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full border-b-[1.5px] border-[#30343B] bg-[#FFFCF4]/95 backdrop-blur-sm px-4 py-3 sm:px-6">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
-        {/* Brand / Logo */}
+        {/*  Logo */}
         <button
           onClick={() => {
             sound.playPop();
