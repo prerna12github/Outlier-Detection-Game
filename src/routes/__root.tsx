@@ -82,8 +82,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "An interactive, educational game for spotting categorical oddities and mastering statistical outlier detection." },
       { property: "og:title", content: "OUTLIER HUNT — Spot the Odd. Master the Data." },
       { property: "og:description", content: "Train your brain to spot anomalies, uncover unusual patterns, and think like a data scientist." },
+      { property: "og:image", content: "/logo.svg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "OUTLIER HUNT — Spot the Odd. Master the Data." },
+      { name: "twitter:description", content: "Train your brain to spot anomalies, uncover unusual patterns, and think like a data scientist." },
+      { name: "twitter:image", content: "/logo.svg" },
     ],
     links: [
       {
@@ -103,7 +107,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Serif+Display:ital@0;1&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "alternate icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
