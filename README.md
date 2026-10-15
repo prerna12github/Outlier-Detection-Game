@@ -13,7 +13,7 @@ An interactive, game-based simulator for learning outlier detection, from simple
 
 </div>
 
-[🎮 Play the Game](YOUR_LIVE_DEMO_URL) · [📦 Container Image](https://github.com/users/prerna12github/packages/container/package/outlier-hunt) · [🚀 Releases](https://github.com/prerna12github/Outlier-Detection-Game/releases)
+[🎮 Play the Game](https://outlier-hunt.prernabuilds.me) · [📦 Container Image](https://github.com/users/prerna12github/packages/container/package/outlier-hunt) · [🚀 Releases](https://github.com/prerna12github/Outlier-Detection-Game/releases)
 
 > Every dataset has a story. Can you spot the observation that doesn't belong?
 
