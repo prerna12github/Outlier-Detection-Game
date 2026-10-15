@@ -1,0 +1,14 @@
+services:
+  outlier-hunt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: outlier-hunt:latest
+    container_name: outlier-hunt
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3000
