@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Award, BookOpen, BarChart3, Compass } from 'lucide-react';
+import { Volume2, VolumeX, Crosshair, Award, BookOpen, BarChart3, Compass } from 'lucide-react';
 import { sound } from '../lib/sound';
 
 interface HeaderProps {
@@ -32,8 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
           }}
           className="group flex items-center gap-2.5 text-left focus:outline-none"
         >
-          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-[4px] border-[1.5px] border-[#30343B] bg-[#FFFCF4] shadow-[2px_2px_0px_#30343B] transition-transform group-hover:scale-105">
-            <img src="/favicon.svg" alt="Outlier Hunt Logo" className="h-7 w-7 object-contain" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-[4px] border-[1.5px] border-[#30343B] bg-[#E85D16] text-[#FFFCF4] shadow-[2px_2px_0px_#30343B] transition-transform group-hover:scale-105">
+            <Crosshair className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
