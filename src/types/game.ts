@@ -62,7 +62,7 @@ export interface GameSession {
   answers: PlayerAnswer[];
   startTime: number;
   isComplete: boolean;
-  timePerQuestion: number; // in seconds
+  timePerQuestion: number; 
 }
 
 export interface GameRecord {
