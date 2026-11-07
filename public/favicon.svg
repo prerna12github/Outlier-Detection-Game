@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Rounded retro-paper badge with offset border -->
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="#F8F2E5" stroke="#30343B" stroke-width="20" />
+  
+  <!-- Subtle coordinate grid dots in background -->
+  <g fill="#E8DDCB">
+    <circle cx="80" cy="80" r="4" />
+    <circle cx="160" cy="80" r="4" />
+    <circle cx="240" cy="80" r="4" />
+    <circle cx="320" cy="80" r="4" />
+    <circle cx="400" cy="80" r="4" />
+    <circle cx="80" cy="432" r="4" />
+    <circle cx="160" cy="432" r="4" />
+    <circle cx="240" cy="432" r="4" />
+    <circle cx="320" cy="432" r="4" />
+    <circle cx="400" cy="432" r="4" />
+  </g>
+
+  <!-- DETECTIVE FEDORA HAT -->
+  <g id="detective-hat">
+    <!-- Hat Crown -->
+    <path d="M 165 210 C 165 110, 195 75, 256 75 C 317 75, 347 110, 347 210 Z" fill="#242830" stroke="#30343B" stroke-width="8" />
+    
+    <!-- Crown Indent / Pinch Highlight -->
+    <path d="M 210 95 C 235 125, 277 125, 302 95" fill="none" stroke="#F8F2E5" stroke-width="12" stroke-linecap="round" />
+    
+    <!-- Fedora Ribbon Band (Burnt Orange) -->
+    <path d="M 162 195 C 210 205, 302 205, 350 195 L 352 220 C 302 230, 210 230, 160 220 Z" fill="#E85D16" stroke="#30343B" stroke-width="6" />
+
+    <!-- Hat Brim (Curved Noir Fedora Brim) -->
+    <path d="M 90 225 C 135 205, 205 218, 256 218 C 307 218, 377 205, 422 225 C 445 238, 410 262, 256 262 C 102 262, 67 238, 90 225 Z" fill="#242830" stroke="#30343B" stroke-width="8" />
+  </g>
+
+  <!-- DETECTIVE MAGNIFYING GLASS -->
+  <g id="magnifying-glass">
+    <!-- Handle Shadow and Handle -->
+    <line x1="335" y1="355" x2="435" y2="455" stroke="#30343B" stroke-width="36" stroke-linecap="round" />
+    <line x1="335" y1="355" x2="435" y2="455" stroke="#E85D16" stroke-width="20" stroke-linecap="round" />
+    <line x1="410" y1="430" x2="425" y2="445" stroke="#F8F2E5" stroke-width="6" stroke-linecap="round" />
+
+    <!-- Outer Rim -->
+    <circle cx="265" cy="335" r="105" fill="#30343B" />
+    
+    <!-- Lens Base -->
+    <circle cx="265" cy="335" r="88" fill="#FFFCF4" stroke="#245D9C" stroke-width="4" />
+    <!-- Tinted Glass Interior -->
+    <circle cx="265" cy="335" r="86" fill="#245D9C" fill-opacity="0.10" />
+
+    <!-- Crosshair / Reticle Marks inside lens -->
+    <line x1="265" y1="255" x2="265" y2="275" stroke="#245D9C" stroke-width="4" stroke-linecap="round" />
+    <line x1="265" y1="395" x2="265" y2="415" stroke="#245D9C" stroke-width="4" stroke-linecap="round" />
+    <line x1="185" y1="335" x2="205" y2="335" stroke="#245D9C" stroke-width="4" stroke-linecap="round" />
+    <line x1="325" y1="335" x2="345" y2="335" stroke="#245D9C" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Inlier data points -->
+    <circle cx="230" cy="360" r="11" fill="#245D9C" stroke="#30343B" stroke-width="3" />
+    <circle cx="210" cy="330" r="8" fill="#245D9C" stroke="#30343B" stroke-width="2.5" />
+    <circle cx="250" cy="380" r="7" fill="#245D9C" stroke="#30343B" stroke-width="2.5" />
+
+    <!-- The Found Outlier (Clue spotted by detective!) -->
+    <circle cx="295" cy="305" r="22" fill="#E85D16" stroke="#30343B" stroke-width="5" />
+    <!-- Outlier Glint -->
+    <circle cx="288" cy="298" r="5" fill="#FFFFFF" />
+
+    <!-- Glass Reflection Arc -->
+    <path d="M 205 290 A 70 70 0 0 1 315 270" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.8" />
+  </g>
+</svg>
