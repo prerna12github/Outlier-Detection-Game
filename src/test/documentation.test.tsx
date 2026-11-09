@@ -6,7 +6,7 @@ import { DocumentationModal } from '../components/DocumentationModal';
 import { loadUserStats } from '../lib/storage';
 
 describe('Documentation Button and Modal', () => {
-  it('renders button with "outlier_hunt_documentation" and triggers callback when clicked', () => {
+  it('renders a button labeled "View Documentation" on the landing page and triggers callback when clicked', () => {
     const onStartPlay = vi.fn();
     const onOpenHowToPlay = vi.fn();
     const onOpenDocumentation = vi.fn();
@@ -20,15 +20,15 @@ describe('Documentation Button and Modal', () => {
       />
     );
 
-    // Matches button with outlier_hunt_documentation
-    const docButtons = screen.getAllByRole('button', { name: /outlier_hunt_documentation/i });
+    // Matches button labeled "View Documentation"
+    const docButtons = screen.getAllByRole('button', { name: /view documentation/i });
     expect(docButtons.length).toBeGreaterThan(0);
 
     fireEvent.click(docButtons[0]);
     expect(onOpenDocumentation).toHaveBeenCalledTimes(1);
   });
 
-  it('renders DocumentationModal with outlier_hunt_documentation preview and download actions when open', () => {
+  it('renders DocumentationModal with embedded PDF preview, "Download PDF" button, and back/close buttons', () => {
     const onClose = vi.fn();
 
     render(
@@ -38,20 +38,19 @@ describe('Documentation Button and Modal', () => {
       />
     );
 
-    // Checks header title and file badge
-    expect(screen.getByText(/Project Documentation/i)).toBeDefined();
-    expect(screen.getAllByText(/outlier_hunt_documentation/i).length).toBeGreaterThan(0);
+    // Checks title and PDF file badge
+    expect(screen.getByText(/Outlier Hunt Documentation/i)).toBeDefined();
+    expect(screen.getAllByText(/Outlier_Hunt_Documentation\.pdf/i).length).toBeGreaterThan(0);
 
-    // Checks preview tab and formatted preview
-    expect(screen.getByText(/Document Preview/i)).toBeDefined();
+    // Checks "Download PDF" button exists
+    const downloadPdfButtons = screen.getAllByRole('link', { name: /download pdf/i });
+    expect(downloadPdfButtons.length).toBeGreaterThan(0);
+    expect(downloadPdfButtons[0].getAttribute('href')).toBe('/Outlier_Hunt_Documentation.pdf');
 
-    // Checks download button exists for outlier_hunt_documentation
-    const downloadBtns = screen.getAllByText(/Download/i);
-    expect(downloadBtns.length).toBeGreaterThan(0);
-
-    // Checks navigation tabs and sections exist
-    expect(screen.getAllByText(/1\. Overview/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/3\. Math & Formulas/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/5\. Docker & Setup/i).length).toBeGreaterThan(0);
+    // Checks Back / Close buttons exist and trigger onClose
+    const backBtn = screen.getByRole('button', { name: /back/i });
+    expect(backBtn).toBeDefined();
+    fireEvent.click(backBtn);
+    expect(onClose).toHaveBeenCalled();
   });
 });
