@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, BookOpen, Brain, Sparkles, Binary, Award, Target, Flame, FileText } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Sparkles, Binary, Award, Target, Flame, FileText, Eye } from 'lucide-react';
 import { UserStats } from '../types/game';
 import { sound } from '../lib/sound';
 
@@ -66,16 +66,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 HOW TO PLAY
               </button>
 
+              {/* View & Preview Documentation Button */}
               <button
                 onClick={() => {
                   sound.playPop();
                   onOpenDocumentation();
                 }}
-                className="retro-btn !py-3 !px-5 !text-base"
-                title="Open & Download Project Documentation"
+                className="retro-btn !py-3 !px-5 !text-base flex items-center gap-2 group"
+                title="Preview & Download outlier_hunt_documentation"
+                aria-label="View Documentation: outlier_hunt_documentation"
               >
                 <FileText className="h-4 w-4 text-[#245D9C]" />
-                View Documentation
+                <span className="flex items-center gap-1.5 flex-wrap">
+                  <span>View Documentation:</span>
+                  <span className="mono font-bold text-xs sm:text-sm text-[#E85D16] bg-[#F4C5A5]/40 px-2 py-0.5 rounded border border-[#30343B]/30 group-hover:bg-[#E85D16] group-hover:text-[#FFFCF4] transition-colors">
+                    outlier_hunt_documentation
+                  </span>
+                </span>
+                <Eye className="h-3.5 w-3.5 text-[#6B7280] group-hover:text-[#242830] transition-colors ml-0.5" />
               </button>
             </div>
           </div>
@@ -275,9 +283,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               sound.playPop();
               onOpenDocumentation();
             }}
-            className="retro-link text-[#245D9C] font-semibold underline underline-offset-4 flex items-center gap-1 hover:text-[#E85D16]"
+            className="retro-link text-[#245D9C] font-semibold underline underline-offset-4 flex items-center gap-1.5 hover:text-[#E85D16]"
           >
-            <FileText className="h-3.5 w-3.5" /> Project Documentation &amp; Download
+            <Eye className="h-3.5 w-3.5 text-[#E85D16]" /> Preview Documentation: <span className="mono font-bold">outlier_hunt_documentation.md</span>
           </button>
         </div>
         <p className="retro-label mt-1">

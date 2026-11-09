@@ -14,6 +14,7 @@ import {
   Sparkles,
   Shield,
   Target,
+  Eye,
 } from 'lucide-react';
 import { sound } from '../lib/sound';
 
@@ -26,97 +27,115 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'modes' | 'math' | 'architecture' | 'docker' | 'raw'>('overview');
+  const [activeTab, setActiveTab] = useState<'preview' | 'overview' | 'modes' | 'math' | 'architecture' | 'docker' | 'raw'>('preview');
+  const [previewMode, setPreviewMode] = useState<'rendered' | 'raw'>('rendered');
   const [copied, setCopied] = useState<boolean>(false);
 
   if (!isOpen) return null;
 
-  const rawMarkdown = `# 🔎 Outlier Hunt — Project Documentation
-**Tagline:** Spot the Odd. Master the Data.
-**License:** MIT License
-**Live Demo:** https://outlier-hunt.prernabuilds.me
-**Docker Image:** ghcr.io/prerna12github/outlier-hunt:1.1.0
+  const rawMarkdown = `# 🔎 Outlier Hunt — Project Documentation (outlier_hunt_documentation.md)
+**Tagline:** Spot the Odd. Master the Data.  
+**Version:** 1.1.0  
+**License:** MIT License  
+**Live Demo:** https://outlier-hunt.prernabuilds.me  
+**Docker Image:** ghcr.io/prerna12github/outlier-hunt:1.1.0  
 
 ---
 
 ## 1. Overview
-Outlier Hunt is an interactive, game-based educational simulator built to teach outlier detection concepts.
-It deliberately separates **categorical odd-one-out puzzles** (cognitive pattern recognition) from **statistical outlier detection** (quantitative data analysis).
+Outlier Hunt turns outlier detection into an engaging, interactive educational game. Players start with simple categorical odd-one-out puzzles and gradually advance to numerical datasets and rigorous statistical challenges.
 
-### Core Highlights:
-- 4 Game Modes: Quick Hunt, Category Clash, Number Detective, Data Scientist Challenge.
-- Beginner to Expert difficulty scaling (Easy, Medium, Hard, Expert).
-- Statistical methods: Mean, Median, Quartiles, Interquartile Range (IQR fences), and Standard Deviation Z-scores.
-- 100% Client-side operation with offline browser localStorage persistence.
-- Retro-editorial paper aesthetic inspired by scientific laboratory notebooks.
+The application deliberately separates:
+1. **Categorical odd-one-out puzzles** (cognitive pattern recognition, semantic categories)
+2. **Statistical outlier detection** (quantitative data analysis, IQR, Z-scores)
 
 ---
 
-## 2. Game Modes
-1. **Quick Hunt:**
-   Short, mixed rounds designed for rapid pattern recognition across categorical and numerical items.
-2. **Category Clash:**
-   Semantic anomaly detection where players identify items violating shared taxonomy (fruits vs vegetables, animals vs plants, programming languages vs markup languages).
-3. **Number Detective:**
-   Identify numerical values that violate sequence logic, arithmetic progressions, or spacing patterns.
-4. **Data Scientist Challenge:**
-   Real-world distributions (temperatures, response times, sensor metrics) evaluated using Tukey IQR fences and Z-scores.
+## 2. Features
+- **4 Game Modes:** Quick Hunt, Category Clash, Number Detective, Data Scientist Challenge.
+- **Progressive Difficulty Levels:** Easy, Medium, Hard, Expert.
+- **Statistical Methods:** Mean, Median, Quartiles, Interquartile Range (IQR fences), and Standard Deviation Z-scores.
+- **Visual Analytics:** Interactive dot-plots and distribution boundaries with anomaly highlight pins.
+- **Pedagogical Explanations:** Real-time feedback with mathematical breakdown after each round.
+- **100% Client-Side:** No backend, database, cookies, or tracking. Personal bests and streaks persist in browser localStorage.
+- **Retro-Light Aesthetic:** Elegant vintage scientific notebook styling with warm paper backgrounds (#F8F2E5, #FFFCF4), dark charcoal borders (#30343B), and hard offset shadows.
 
 ---
 
-## 3. Mathematical & Detection Rules
+## 3. Game Modes
+
+| Mode | Type | Description |
+|---|---|---|
+| **Quick Hunt** | Mixed | Rapid 5-question rounds mixing categorical and numerical oddities. |
+| **Category Clash** | Qualitative | Identify the item violating the common category (fruits vs. vegetables, programming vs. markup). |
+| **Number Detective** | Sequences | Spot numerical values that break sequence patterns or cluster boundaries. |
+| **Data Scientist Challenge** | Applied Statistics | Real-world telemetry (latencies, temperatures, sensors) solved using IQR fences and Z-scores. |
+
+---
+
+## 4. Mathematical Detection Rules
 
 ### Interquartile Range (IQR) Method (Tukey's Fences)
-- **IQR** = Q3 - Q1
-- **Lower Fence** = Q1 - (1.5 × IQR)
-- **Upper Fence** = Q3 + (1.5 × IQR)
-- Any observation x < Lower Fence or x > Upper Fence is flagged as an outlier.
+The IQR method relies on percentiles and is robust against extreme values.
+\`\`\`text
+IQR         = Q3 - Q1
+Lower Fence = Q1 - (1.5 × IQR)
+Upper Fence = Q3 + (1.5 × IQR)
+\`\`\`
+Any value smaller than Lower Fence or larger than Upper Fence is flagged as an outlier.
 
 ### Z-Score Standard Deviation Method
-- **Formula:** Z = (x - μ) / σ
-- where μ is the dataset mean and σ is the standard deviation.
-- Observations with |Z| > 2 (or 3) are flagged as significant anomalies.
+The Z-score measures how many standard deviations an observation lies from the distribution mean.
+\`\`\`text
+Z = (x - μ) / σ
+\`\`\`
+where:
+- x = observation value
+- μ = dataset arithmetic mean
+- σ = standard deviation
+
+Observations with |Z| > 2 (or 3) are flagged as statistically significant outliers.
 
 ---
 
-## 4. Technical Architecture
-- **Framework:** React 19 + TypeScript
-- **Routing:** TanStack Router with TanStack Start
-- **Styling:** Tailwind CSS + Custom retro paper color tokens
-- **Animations:** Framer Motion & CSS transitions
+## 5. Technology Stack & Architecture
+- **Framework:** React 19 with TypeScript
+- **Routing:** TanStack Router & TanStack Start
+- **Styling:** Tailwind CSS + custom retro-paper CSS custom properties
+- **Icons & Motion:** Lucide React & Framer Motion
+- **Visualization:** Recharts & Vector SVG graphics
 - **Audio:** Web Audio API synthesizer for zero-dependency sound effects
-- **State & Storage:** React Hooks + browser localStorage
-- **Containerization:** Multi-stage Docker/Podman packaging
+- **Local Persistence:** Browser localStorage with offline resilience
 
 ---
 
-## 5. Getting Started
+## 6. Getting Started & Running
 
 ### Local Development
 \`\`\`bash
-# 1. Clone the repository
+# 1. Clone repository
 git clone https://github.com/prerna12github/Outlier-Detection-Game.git
 cd Outlier-Detection-Game/outlier-odyssey
 
 # 2. Install dependencies
 bun install
 
-# 3. Start development server
+# 3. Start local development server
 bun run dev
 
-# 4. Run tests
+# 4. Run test suite
 bun test
 
 # 5. Production build
 bun run build
 \`\`\`
 
-### Running with Docker / Podman
+### Running with Docker or Podman
 \`\`\`bash
 podman pull ghcr.io/prerna12github/outlier-hunt:1.1.0
 podman run -d --name outlier-hunt -p 3000:3000 ghcr.io/prerna12github/outlier-hunt:1.1.0
 \`\`\`
-Visit http://localhost:3000 to play!
+Open http://localhost:3000 in your browser to play!
 `;
 
   const handleDownload = () => {
@@ -126,14 +145,13 @@ Visit http://localhost:3000 to play!
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'Outlier-Hunt-Documentation.md';
+      link.download = 'outlier_hunt_documentation.md';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     } catch {
-      // Fallback to static public link
-      window.open('/docs/Outlier-Hunt-Documentation.md', '_blank');
+      window.open('/outlier_hunt_documentation.md', '_blank');
     }
   };
 
@@ -155,22 +173,23 @@ Visit http://localhost:3000 to play!
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#242830]/50 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto">
-      <div className="retro-card relative max-w-4xl w-full my-6 p-6 sm:p-8 space-y-6 animate-in zoom-in-95 bg-[#FFFCF4] max-h-[90vh] flex flex-col">
+      <div className="retro-card relative max-w-5xl w-full my-6 p-6 sm:p-8 space-y-6 animate-in zoom-in-95 bg-[#FFFCF4] max-h-[92vh] flex flex-col">
         {/* Modal Top Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b-[1.5px] border-[#30343B] pb-4">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="retro-chip !bg-[#245D9C] !text-[#FFFCF4] flex items-center gap-1">
-                <FileText className="h-3 w-3" /> TECHNICAL SPECIFICATION
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="retro-chip !bg-[#245D9C] !text-[#FFFCF4] flex items-center gap-1.5">
+                <FileText className="h-3.5 w-3.5" /> DOCUMENTATION PREVIEW
+              </span>
+              <span className="mono font-bold text-xs bg-[#E85D16] text-[#FFFCF4] px-2 py-0.5 rounded shadow-[1px_1px_0px_#30343B]">
+                outlier_hunt_documentation.md
               </span>
               <span className="retro-chip !py-0.5 !px-1.5 !text-[9px]">v1.1.0</span>
             </div>
-            <h2 className="serif text-2xl sm:text-3xl font-extrabold text-[#242830] mt-1.5">
-              Project Documentation
+            <h2 className="serif text-2xl sm:text-3xl font-extrabold text-[#242830] mt-1.5 flex items-center gap-2">
+              <span>Project Documentation</span>
+              <span className="text-base font-normal hand text-[#E85D16]">"Spot the Odd. Master the Data."</span>
             </h2>
-            <p className="hand text-lg text-[#245D9C] mt-0.5">
-              Outlier Hunt: Spot the Odd. Master the Data.
-            </p>
           </div>
 
           {/* Action Buttons */}
@@ -178,7 +197,7 @@ Visit http://localhost:3000 to play!
             <button
               onClick={handleDownload}
               className="retro-btn retro-btn-primary !py-2 !px-3.5 !text-xs flex items-center gap-1.5 shadow-[2px_2px_0px_#30343B]"
-              title="Download documentation as Markdown (.md)"
+              title="Download outlier_hunt_documentation.md"
             >
               <Download className="h-3.5 w-3.5" />
               <span>Download (.md)</span>
@@ -187,7 +206,7 @@ Visit http://localhost:3000 to play!
             <button
               onClick={handleCopy}
               className="retro-btn !py-2 !px-3 !text-xs flex items-center gap-1.5"
-              title="Copy markdown content to clipboard"
+              title="Copy markdown text to clipboard"
             >
               {copied ? (
                 <>
@@ -205,7 +224,7 @@ Visit http://localhost:3000 to play!
             <button
               onClick={handlePrint}
               className="retro-btn !py-2 !px-3 !text-xs hidden sm:flex items-center gap-1.5"
-              title="Print documentation or Save as PDF"
+              title="Print documentation or save as PDF"
             >
               <Printer className="h-3.5 w-3.5 text-[#6B7280]" />
               <span>Print / PDF</span>
@@ -225,35 +244,207 @@ Visit http://localhost:3000 to play!
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b-[1.5px] border-[#30343B]/30 scrollbar-thin">
-          {[
-            { id: 'overview', label: '1. Overview', icon: <BookOpen className="h-3.5 w-3.5" /> },
-            { id: 'modes', label: '2. Game Modes', icon: <Target className="h-3.5 w-3.5" /> },
-            { id: 'math', label: '3. Math & Formulas', icon: <Calculator className="h-3.5 w-3.5" /> },
-            { id: 'architecture', label: '4. Architecture', icon: <Layers className="h-3.5 w-3.5" /> },
-            { id: 'docker', label: '5. Docker & Setup', icon: <Terminal className="h-3.5 w-3.5" /> },
-            { id: 'raw', label: 'Raw Markdown', icon: <FileText className="h-3.5 w-3.5" /> },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => {
-                sound.playPop();
-                setActiveTab(tab.id as typeof activeTab);
-              }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border-[1.5px] text-xs font-semibold whitespace-nowrap transition-all ${
-                activeTab === tab.id
-                  ? 'border-[#30343B] bg-[#242830] text-[#FFFCF4] shadow-[2px_2px_0px_#30343B]'
-                  : 'border-transparent text-[#6B7280] hover:text-[#242830] hover:bg-[#F8F2E5]'
-              }`}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
+        <div className="flex items-center justify-between gap-2 overflow-x-auto pb-1 border-b-[1.5px] border-[#30343B]/30 scrollbar-thin">
+          <div className="flex items-center gap-1.5 flex-nowrap">
+            {[
+              { id: 'preview', label: '📄 Document Preview', icon: <Eye className="h-3.5 w-3.5" /> },
+              { id: 'overview', label: '1. Overview', icon: <BookOpen className="h-3.5 w-3.5" /> },
+              { id: 'modes', label: '2. Game Modes', icon: <Target className="h-3.5 w-3.5" /> },
+              { id: 'math', label: '3. Math & Formulas', icon: <Calculator className="h-3.5 w-3.5" /> },
+              { id: 'architecture', label: '4. Architecture', icon: <Layers className="h-3.5 w-3.5" /> },
+              { id: 'docker', label: '5. Docker & Setup', icon: <Terminal className="h-3.5 w-3.5" /> },
+              { id: 'raw', label: 'Raw Markdown (.md)', icon: <FileText className="h-3.5 w-3.5" /> },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  sound.playPop();
+                  setActiveTab(tab.id as typeof activeTab);
+                }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border-[1.5px] text-xs font-semibold whitespace-nowrap transition-all ${
+                  activeTab === tab.id
+                    ? 'border-[#30343B] bg-[#242830] text-[#FFFCF4] shadow-[2px_2px_0px_#30343B]'
+                    : 'border-transparent text-[#6B7280] hover:text-[#242830] hover:bg-[#F8F2E5]'
+                }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Switch preview mode if on preview tab */}
+          {activeTab === 'preview' && (
+            <div className="hidden sm:flex items-center gap-1 bg-[#F8F2E5] p-0.5 rounded border border-[#30343B]">
+              <button
+                onClick={() => setPreviewMode('rendered')}
+                className={`px-2 py-0.5 text-[11px] font-medium rounded ${
+                  previewMode === 'rendered' ? 'bg-[#FFFCF4] text-[#242830] font-bold shadow-xs' : 'text-[#6B7280]'
+                }`}
+              >
+                Formatted View
+              </button>
+              <button
+                onClick={() => setPreviewMode('raw')}
+                className={`px-2 py-0.5 text-[11px] font-medium rounded ${
+                  previewMode === 'raw' ? 'bg-[#FFFCF4] text-[#242830] font-bold shadow-xs' : 'text-[#6B7280]'
+                }`}
+              >
+                Code View
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="flex-1 overflow-y-auto pr-1 space-y-6 text-sm text-[#242830] leading-relaxed">
+        <div className="flex-1 overflow-y-auto pr-2 space-y-6 text-sm text-[#242830] leading-relaxed">
+          {/* TAB 0: COMPLETE DOCUMENT PREVIEW */}
+          {activeTab === 'preview' && (
+            <div className="space-y-6">
+              {previewMode === 'raw' ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between text-xs text-[#6B7280]">
+                    <span className="mono">outlier_hunt_documentation.md (Markdown source)</span>
+                    <button onClick={handleCopy} className="retro-btn !py-1 !px-2.5 !text-xs flex items-center gap-1">
+                      <Copy className="h-3 w-3" />
+                      {copied ? 'Copied!' : 'Copy Code'}
+                    </button>
+                  </div>
+                  <pre className="bg-[#242830] text-[#FFFCF4] p-4 rounded-[4px] font-mono text-xs max-h-[480px] overflow-y-auto whitespace-pre-wrap selection:bg-[#E85D16]">
+                    {rawMarkdown}
+                  </pre>
+                </div>
+              ) : (
+                <article className="space-y-6 bg-[#FFFCF4] rounded-[4px]">
+                  {/* Article Document Header */}
+                  <div className="border-b-[1.5px] border-[#30343B] pb-5 space-y-3">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <span className="mono text-xs text-[#6B7280] bg-[#F8F2E5] px-2.5 py-1 rounded border border-[#30343B]/30">
+                        📄 File: outlier_hunt_documentation.md
+                      </span>
+                      <span className="retro-chip !bg-[#218653] !text-[#FFFCF4]">STATUS: PRODUCTION READY</span>
+                    </div>
+
+                    <h1 className="serif text-3xl sm:text-4xl font-extrabold text-[#242830]">
+                      🔎 Outlier Hunt Documentation
+                    </h1>
+                    <p className="hand text-2xl text-[#245D9C]">
+                      Spot the Odd. Master the Data.
+                    </p>
+                    <p className="text-xs text-[#6B7280]">
+                      An educational game-based outlier detection simulator created for exploring qualitative odd-one-out puzzles, numerical sequences, and statistical Tukey fences &amp; Z-scores.
+                    </p>
+                  </div>
+
+                  {/* Quick Table of Contents Preview */}
+                  <div className="p-4 rounded-[4px] border-[1.5px] border-[#30343B] bg-[#F8F2E5] space-y-2">
+                    <div className="retro-label !text-[11px] text-[#242830]">TABLE OF CONTENTS</div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                      <button onClick={() => setActiveTab('overview')} className="text-left font-medium text-[#245D9C] hover:underline">
+                        → 1. Overview &amp; Concept
+                      </button>
+                      <button onClick={() => setActiveTab('modes')} className="text-left font-medium text-[#245D9C] hover:underline">
+                        → 2. Game Modes
+                      </button>
+                      <button onClick={() => setActiveTab('math')} className="text-left font-medium text-[#245D9C] hover:underline">
+                        → 3. Math &amp; Formulas
+                      </button>
+                      <button onClick={() => setActiveTab('architecture')} className="text-left font-medium text-[#245D9C] hover:underline">
+                        → 4. Architecture
+                      </button>
+                      <button onClick={() => setActiveTab('docker')} className="text-left font-medium text-[#245D9C] hover:underline">
+                        → 5. Docker &amp; Setup
+                      </button>
+                      <button onClick={() => setActiveTab('raw')} className="text-left font-medium text-[#245D9C] hover:underline">
+                        → 6. Raw Markdown
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Section 1: Overview */}
+                  <section className="space-y-3">
+                    <h3 className="serif text-xl font-bold text-[#242830] flex items-center gap-2 border-b border-[#30343B]/20 pb-1.5">
+                      <Sparkles className="h-4 w-4 text-[#E85D16]" /> 1. Overview &amp; Educational Vision
+                    </h3>
+                    <p className="text-xs text-[#6B7280] leading-relaxed">
+                      OUTLIER HUNT turns data anomaly detection into an intuitive, gamified experience.
+                      It starts with intuitive cognitive pattern recognition (spotting semantic discrepancies like an animal among countries)
+                      and progressively introduces rigorous numerical calculations (detecting values exceeding 1.5 × IQR fences or |Z| &gt; 2).
+                    </p>
+                    <div className="grid gap-3 sm:grid-cols-2 pt-1">
+                      <div className="retro-card p-3 space-y-1">
+                        <div className="retro-label text-[10px]">CATEGORY PUZZLES</div>
+                        <div className="font-semibold text-xs text-[#242830]">Pattern Recognition</div>
+                        <p className="text-[11px] text-[#6B7280]">
+                          Semantic boundaries (taxonomies, languages, foods, geographical units).
+                        </p>
+                      </div>
+                      <div className="retro-card p-3 space-y-1">
+                        <div className="retro-label text-[10px]">STATISTICAL TESTS</div>
+                        <div className="font-semibold text-xs text-[#242830]">Quantitative Detection</div>
+                        <p className="text-[11px] text-[#6B7280]">
+                          Tukey fences, Z-score standard deviation, distributions, and quartiles.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* Section 2: Game Modes Summary */}
+                  <section className="space-y-3">
+                    <h3 className="serif text-xl font-bold text-[#242830] flex items-center gap-2 border-b border-[#30343B]/20 pb-1.5">
+                      <Target className="h-4 w-4 text-[#E85D16]" /> 2. Four Interactive Game Modes
+                    </h3>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="retro-card p-3.5 space-y-1.5 border-l-4 border-l-[#245D9C]">
+                        <span className="retro-label text-[10px]">MODE A</span>
+                        <h4 className="serif font-bold text-[#242830]">Quick Hunt</h4>
+                        <p className="text-xs text-[#6B7280]">Fast-paced rounds combining categorical and numerical oddities for quick reflexes.</p>
+                      </div>
+                      <div className="retro-card p-3.5 space-y-1.5 border-l-4 border-l-[#E85D16]">
+                        <span className="retro-label text-[10px]">MODE B</span>
+                        <h4 className="serif font-bold text-[#242830]">Category Clash</h4>
+                        <p className="text-xs text-[#6B7280]">Semantic taxonomy questions (fruits vs. vegetables, programming vs. markup).</p>
+                      </div>
+                      <div className="retro-card p-3.5 space-y-1.5 border-l-4 border-l-[#218653]">
+                        <span className="retro-label text-[10px]">MODE C</span>
+                        <h4 className="serif font-bold text-[#242830]">Number Detective</h4>
+                        <p className="text-xs text-[#6B7280]">Numerical sequences, arithmetic progressions, and distance-from-cluster anomalies.</p>
+                      </div>
+                      <div className="retro-card p-3.5 space-y-1.5 border-l-4 border-l-[#242830]">
+                        <span className="retro-label text-[10px]">MODE D</span>
+                        <h4 className="serif font-bold text-[#242830]">Data Scientist Challenge</h4>
+                        <p className="text-xs text-[#6B7280]">Real datasets with dot plots, quartiles, Tukey fences, and Z-score calculations.</p>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* Section 3: Math Summary */}
+                  <section className="space-y-3">
+                    <h3 className="serif text-xl font-bold text-[#242830] flex items-center gap-2 border-b border-[#30343B]/20 pb-1.5">
+                      <Calculator className="h-4 w-4 text-[#E85D16]" /> 3. Detection Rules &amp; Formulas
+                    </h3>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="bg-[#242830] text-[#FFFCF4] p-4 rounded-[4px] space-y-2 font-mono text-xs">
+                        <div className="text-[#F4C5A5] font-bold">Tukey Interquartile Range:</div>
+                        <div>IQR = Q3 - Q1</div>
+                        <div>Lower Fence = Q1 - 1.5 × IQR</div>
+                        <div>Upper Fence = Q3 + 1.5 × IQR</div>
+                        <div className="text-[#6B7280] text-[10px]">Robust against extreme values</div>
+                      </div>
+                      <div className="bg-[#242830] text-[#FFFCF4] p-4 rounded-[4px] space-y-2 font-mono text-xs">
+                        <div className="text-[#F4C5A5] font-bold">Z-Score Standard Deviation:</div>
+                        <div>Z = (x - μ) / σ</div>
+                        <div>μ = Mean, σ = Std Deviation</div>
+                        <div>Threshold: |Z| &gt; 2 or |Z| &gt; 3</div>
+                        <div className="text-[#6B7280] text-[10px]">Standardized distance from mean</div>
+                      </div>
+                    </div>
+                  </section>
+                </article>
+              )}
+            </div>
+          )}
+
           {/* TAB 1: OVERVIEW */}
           {activeTab === 'overview' && (
             <div className="space-y-5">
@@ -289,7 +480,7 @@ Visit http://localhost:3000 to play!
               </div>
 
               <div className="retro-card p-4 space-y-2">
-                <h4 className="serif font-bold text-[#242830]">Key Features & Technical Pillars</h4>
+                <h4 className="serif font-bold text-[#242830]">Key Features &amp; Technical Pillars</h4>
                 <ul className="list-disc list-inside space-y-1.5 text-xs text-[#6B7280] marker:text-[#E85D16]">
                   <li><strong>Four Diverse Game Modes:</strong> Quick Hunt, Category Clash, Number Detective, and Data Scientist Challenge.</li>
                   <li><strong>Instant Mathematical Validation:</strong> Immediate explanations with Tukey fence and Z-score calculations.</li>
@@ -441,7 +632,7 @@ Visit http://localhost:3000 to play!
               </div>
 
               <div className="retro-card p-4 space-y-2">
-                <h4 className="serif font-bold text-[#242830]">Security & Privacy Profile</h4>
+                <h4 className="serif font-bold text-[#242830]">Security &amp; Privacy Profile</h4>
                 <div className="flex items-start gap-2 text-xs text-[#6B7280]">
                   <Shield className="h-4 w-4 text-[#218653] shrink-0 mt-0.5" />
                   <span>
@@ -487,7 +678,7 @@ bun run dev`}
           {activeTab === 'raw' && (
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs text-[#6B7280]">
-                <span>Complete markdown file for documentation & export</span>
+                <span>Complete markdown file for documentation &amp; export</span>
                 <button
                   onClick={handleCopy}
                   className="retro-btn !py-1 !px-2.5 !text-xs flex items-center gap-1"
@@ -496,7 +687,7 @@ bun run dev`}
                   <span>{copied ? 'Copied!' : 'Copy Raw Markdown'}</span>
                 </button>
               </div>
-              <pre className="bg-[#242830] text-[#FFFCF4] p-4 rounded-[4px] font-mono text-xs max-h-[380px] overflow-y-auto whitespace-pre-wrap selection:bg-[#E85D16]">
+              <pre className="bg-[#242830] text-[#FFFCF4] p-4 rounded-[4px] font-mono text-xs max-h-[420px] overflow-y-auto whitespace-pre-wrap selection:bg-[#E85D16]">
                 {rawMarkdown}
               </pre>
             </div>
@@ -505,19 +696,20 @@ bun run dev`}
 
         {/* Modal Bottom Actions */}
         <div className="pt-3 border-t-[1.5px] border-[#30343B] flex flex-wrap items-center justify-between gap-3 bg-[#FFFCF4]">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={handleDownload}
               className="retro-btn retro-btn-primary !py-2 !px-4 !text-xs flex items-center gap-1.5"
             >
               <Download className="h-3.5 w-3.5" />
-              Download Full Documentation (.md)
+              Download outlier_hunt_documentation.md
             </button>
             <a
-              href="/docs/Outlier-Hunt-Documentation.md"
+              href="/outlier_hunt_documentation.md"
               target="_blank"
               rel="noopener noreferrer"
               className="retro-btn !py-2 !px-3 !text-xs flex items-center gap-1.5"
+              title="Open raw markdown file directly in new tab"
             >
               <ExternalLink className="h-3.5 w-3.5 text-[#245D9C]" />
               Direct File Link
@@ -531,7 +723,7 @@ bun run dev`}
             }}
             className="retro-btn !py-2 !px-4 !text-xs"
           >
-            Close Dossier
+            Close Preview
           </button>
         </div>
       </div>

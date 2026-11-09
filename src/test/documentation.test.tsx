@@ -6,7 +6,7 @@ import { DocumentationModal } from '../components/DocumentationModal';
 import { loadUserStats } from '../lib/storage';
 
 describe('Documentation Button and Modal', () => {
-  it('renders "View Documentation" button on the home page and triggers callback when clicked', () => {
+  it('renders button with "outlier_hunt_documentation" and triggers callback when clicked', () => {
     const onStartPlay = vi.fn();
     const onOpenHowToPlay = vi.fn();
     const onOpenDocumentation = vi.fn();
@@ -20,14 +20,15 @@ describe('Documentation Button and Modal', () => {
       />
     );
 
-    const docButton = screen.getByRole('button', { name: /view documentation/i });
-    expect(docButton).toBeDefined();
+    // Matches button with outlier_hunt_documentation
+    const docButtons = screen.getAllByRole('button', { name: /outlier_hunt_documentation/i });
+    expect(docButtons.length).toBeGreaterThan(0);
 
-    fireEvent.click(docButton);
+    fireEvent.click(docButtons[0]);
     expect(onOpenDocumentation).toHaveBeenCalledTimes(1);
   });
 
-  it('renders DocumentationModal with download actions and sections when open', () => {
+  it('renders DocumentationModal with outlier_hunt_documentation preview and download actions when open', () => {
     const onClose = vi.fn();
 
     render(
@@ -37,16 +38,20 @@ describe('Documentation Button and Modal', () => {
       />
     );
 
-    // Checks header title
+    // Checks header title and file badge
     expect(screen.getByText(/Project Documentation/i)).toBeDefined();
+    expect(screen.getAllByText(/outlier_hunt_documentation/i).length).toBeGreaterThan(0);
 
-    // Checks download button exists
+    // Checks preview tab and formatted preview
+    expect(screen.getByText(/Document Preview/i)).toBeDefined();
+
+    // Checks download button exists for outlier_hunt_documentation
     const downloadBtns = screen.getAllByText(/Download/i);
     expect(downloadBtns.length).toBeGreaterThan(0);
 
-    // Checks navigation tabs exist
-    expect(screen.getByText(/1\. Overview/i)).toBeDefined();
-    expect(screen.getByText(/3\. Math & Formulas/i)).toBeDefined();
-    expect(screen.getByText(/5\. Docker & Setup/i)).toBeDefined();
+    // Checks navigation tabs and sections exist
+    expect(screen.getAllByText(/1\. Overview/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/3\. Math & Formulas/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/5\. Docker & Setup/i).length).toBeGreaterThan(0);
   });
 });
