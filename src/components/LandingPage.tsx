@@ -1,17 +1,19 @@
 import React from 'react';
-import { ArrowRight, BookOpen, Brain, Sparkles, Binary, Award, Target, Flame } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Sparkles, Binary, Award, Target, Flame, FileText } from 'lucide-react';
 import { UserStats } from '../types/game';
 import { sound } from '../lib/sound';
 
 interface LandingPageProps {
   onStartPlay: () => void;
   onOpenHowToPlay: () => void;
+  onOpenDocumentation: () => void;
   userStats: UserStats;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onStartPlay,
   onOpenHowToPlay,
+  onOpenDocumentation,
   userStats,
 }) => {
   return (
@@ -62,6 +64,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               >
                 <BookOpen className="h-4 w-4 text-[#E85D16]" />
                 HOW TO PLAY
+              </button>
+
+              <button
+                onClick={() => {
+                  sound.playPop();
+                  onOpenDocumentation();
+                }}
+                className="retro-btn !py-3 !px-5 !text-base"
+                title="Open & Download Project Documentation"
+              >
+                <FileText className="h-4 w-4 text-[#245D9C]" />
+                View Documentation
               </button>
             </div>
           </div>
@@ -251,11 +265,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* Editorial Quote & Footer */}
-      <footer className="text-center pt-4 pb-2 border-t-[1.5px] border-[#30343B]">
+      <footer className="text-center pt-4 pb-2 border-t-[1.5px] border-[#30343B] space-y-2">
         <p className="hand text-2xl text-[#6B7280]">
           "Every dataset tells a story. Can you spot the observation that doesn't belong?"
         </p>
-        <p className="retro-label mt-2">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
+          <button
+            onClick={() => {
+              sound.playPop();
+              onOpenDocumentation();
+            }}
+            className="retro-link text-[#245D9C] font-semibold underline underline-offset-4 flex items-center gap-1 hover:text-[#E85D16]"
+          >
+            <FileText className="h-3.5 w-3.5" /> Project Documentation &amp; Download
+          </button>
+        </div>
+        <p className="retro-label mt-1">
           OUTLIER HUNT — Learn Data Science. One Oddity at a Time.
         </p>
       </footer>

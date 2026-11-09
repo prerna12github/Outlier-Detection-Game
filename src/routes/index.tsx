@@ -8,6 +8,7 @@ import { ResultsScreen } from "../components/ResultsScreen";
 import { HowToPlayView } from "../components/HowToPlayView";
 import { HowToPlayModal } from "../components/HowToPlayModal";
 import { StatsModal } from "../components/StatsModal";
+import { DocumentationModal } from "../components/DocumentationModal";
 import { GameMode, Difficulty, PlayerAnswer, Question, UserStats } from "../types/game";
 import { getQuestionsForGame } from "../data/questionBank";
 import { loadUserStats, recordGameSession } from "../lib/storage";
@@ -52,6 +53,7 @@ function OutlierHuntApp() {
   // Modals
   const [howToPlayOpen, setHowToPlayOpen] = useState<boolean>(false);
   const [statsOpen, setStatsOpen] = useState<boolean>(false);
+  const [documentationOpen, setDocumentationOpen] = useState<boolean>(false);
 
   // Reload user stats on mount
   useEffect(() => {
@@ -131,6 +133,7 @@ function OutlierHuntApp() {
           <LandingPage
             onStartPlay={() => setScreen('modes')}
             onOpenHowToPlay={() => setScreen('how-to-play')}
+            onOpenDocumentation={() => setDocumentationOpen(true)}
             userStats={userStats}
           />
         )}
@@ -190,6 +193,12 @@ function OutlierHuntApp() {
         onClose={() => setStatsOpen(false)}
         userStats={userStats}
         onStatsReset={() => setUserStats(loadUserStats())}
+      />
+
+      {/* Project Documentation Viewer & Downloader Modal */}
+      <DocumentationModal
+        isOpen={documentationOpen}
+        onClose={() => setDocumentationOpen(false)}
       />
     </div>
   );
