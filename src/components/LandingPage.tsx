@@ -271,7 +271,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           "Every dataset tells a story. Can you spot the observation that doesn't belong?"
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
-          <button
+          {/*<button
             onClick={() => {
               sound.playPop();
               onOpenDocumentation();
@@ -279,7 +279,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             className="retro-link text-[#245D9C] font-semibold underline underline-offset-4 flex items-center gap-1.5 hover:text-[#E85D16]"
           >
             <FileText className="h-3.5 w-3.5 text-[#E85D16]" /> View Documentation (Outlier_Hunt_Documentation.pdf)
-          </button>
+          </button>*/}
         </div>
         <p className="retro-label mt-1">
           OUTLIER HUNT — Learn Data Science. One Oddity at a Time.

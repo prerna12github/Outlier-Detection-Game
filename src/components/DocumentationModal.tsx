@@ -35,12 +35,12 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
 
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="retro-chip !bg-[#245D9C] !text-[#FFFCF4] flex items-center gap-1">
+                {/*<span className="retro-chip !bg-[#245D9C] !text-[#FFFCF4] flex items-center gap-1">
                   <FileText className="h-3 w-3" /> PDF PREVIEW
-                </span>
-                <span className="mono font-semibold text-xs text-[#242830] bg-[#F8F2E5] px-2 py-0.5 rounded border border-[#30343B]/30">
+                </span>*/}
+                {/*<span className="mono font-semibold text-xs text-[#242830] bg-[#F8F2E5] px-2 py-0.5 rounded border border-[#30343B]/30">
                   Outlier_Hunt_Documentation.pdf
-                </span>
+                </span>*/}
               </div>
               <h2 className="serif text-xl sm:text-2xl font-bold text-[#242830] mt-1">
                 Outlier Hunt Documentation
@@ -72,7 +72,7 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
               <span>Open Tab</span>
             </a>
 
-            <button
+            {/*<button
               onClick={() => {
                 sound.playPop();
                 onClose();
@@ -81,8 +81,8 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
               aria-label="Close"
               title="Close Preview"
             >
-              <X className="h-4 w-4" />
-            </button>
+              {/*<X className="h-4 w-4" />*/}
+            {/*</button>*/}
           </div>
         </div>
 
@@ -121,11 +121,11 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
 
         {/* Bottom Footer Actions */}
         <div className="pt-2 border-t-[1.5px] border-[#30343B] flex items-center justify-between text-xs text-[#6B7280]">
-          <div className="flex items-center gap-2">
+          {/*<div className="flex items-center gap-2">
             <span className="mono">File: Outlier_Hunt_Documentation.pdf</span>
-          </div>
+          </div>*/}
 
-          <div className="flex items-center gap-2">
+          {/*<div className="flex items-center gap-2">
             <a
               href={pdfUrl}
               download="Outlier_Hunt_Documentation.pdf"
@@ -133,10 +133,10 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
               className="retro-btn retro-btn-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5"
             >
               <Download className="h-3.5 w-3.5" />
-              <span>Download PDF</span>
-            </a>
+              {/*<span>Download PDF</span>*/}
+            {/*</a>*/}
 
-            <button
+            {/*<button
               onClick={() => {
                 sound.playPop();
                 onClose();
@@ -145,7 +145,7 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
             >
               Close
             </button>
-          </div>
+          </div>*/}
         </div>
       </div>
     </div>
